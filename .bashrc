@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+cat ~/.cache/wal/sequences
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -88,9 +90,9 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -112,7 +114,3 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Created by `pipx` on 2025-12-10 19:33:21
-export PATH="$PATH:/home/fausto/.local/bin"
-
-alias vim=vi

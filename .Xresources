@@ -1,6 +1,7 @@
 #include "/home/fausto/.cache/wal/colors.Xresources"
 
-*.font: xft:monospace:size=12
+*.font: xft:monospace:size=10
+XTerm.vt100.reverseVideo: true
 XTerm*selectToClipboard: true
 *.vt100.metaSendsEscape: true
 *.vt100.backarrowKey: false

@@ -165,3 +165,7 @@
     spacing: 0;
     text-color: @normal-foreground;
 }}
+
+* {{
+    font-size: 10px;
+}}

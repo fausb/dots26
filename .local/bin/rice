@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 FOLDER=~/Pictures/Wallpapers # wallpaper folder
+bgtype=fill # default bg type
 
 menu () {
-	CHOICE=$(ls $FOLDER/*.jpg | nsxiv -tio)
-
+	CHOICE=$(ls $FOLDER/*.jpg ls $FOLDER/*.jpeg ls $FOLDER/*.png | nsxiv -tio)
 	echo "CHOICE: $CHOICE"
 	scripts $CHOICE
 }
@@ -13,7 +13,9 @@ menu () {
 scripts () {
 	image=$1
 
-	wal -i "$image"
+	./.local/bin/wal -i "$image" -n
+	
+	feh "--bg-$bgtype" "$image"
 
 	i3 restart
 
@@ -22,10 +24,27 @@ scripts () {
 	#printf "[Settings]\ngtk-theme-name = oomox-colors-oomox\ngtk-icon-theme-name = oomox-colors-oomox" > ~/.config/gtk-3.0/dunstrc
 }
 
-# if no arguments, open nsxiv menu. if 1 argument, use that as the wal wallpaper.
+main () {
+	if [[ -v IMGCLI ]]
+	then
+		scripts $IMGCLI	
+	else
+		menu
+	fi
+}
 
 case "$#" in
-		0) menu ;;
-		1) scripts "$1" ;;
-		*) exit 0 ;;
+	0) menu ;;
+	*) 
+		while getopts "i:b:m" opt; do
+			case "$opt" in
+				i) IMGCLI=$OPTARG; main ;;
+				b)
+					case "$OPTARG" in
+						"center"|"fill"|"max"|"scale"|"tile") bgtype=$OPTARG; main ;;
+						*) printf "ERROR: incorrect background type.\ntry: center, fill, max, scale, or tile.\n" ;;
+					esac ;;
+				m) menu ;;
+			esac
+		done ;;
 esac
